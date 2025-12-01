@@ -1,12 +1,270 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Icon from '@/components/ui/icon';
+
+const categories = [
+  'Все',
+  'Статьи',
+  'Монографии',
+  'Учебники',
+  'Публицистика',
+  'Литература',
+  'Интервью'
+];
+
+const publications = [
+  {
+    id: 1,
+    title: 'О природе научного познания',
+    category: 'Статьи',
+    year: 2024,
+    journal: 'Вестник науки',
+    excerpt: 'Исследование фундаментальных принципов научного метода и его применения в современной науке.',
+    tags: ['философия науки', 'методология', 'эпистемология']
+  },
+  {
+    id: 2,
+    title: 'Системы и структуры',
+    category: 'Монографии',
+    year: 2023,
+    journal: 'Издательство университета',
+    excerpt: 'Монографическое исследование системных подходов в современной научной практике.',
+    tags: ['системный анализ', 'структурализм', 'методология']
+  },
+  {
+    id: 3,
+    title: 'Введение в теорию познания',
+    category: 'Учебники',
+    year: 2024,
+    journal: 'Академическое издательство',
+    excerpt: 'Учебное пособие для студентов философских факультетов, охватывающее основные теории познания.',
+    tags: ['философия', 'образование', 'гносеология']
+  },
+  {
+    id: 4,
+    title: 'Наука и общество в XXI веке',
+    category: 'Публицистика',
+    year: 2024,
+    journal: 'Современник',
+    excerpt: 'Размышления о роли науки в современном обществе и вызовах будущего.',
+    tags: ['социология науки', 'публицистика', 'современность']
+  },
+  {
+    id: 5,
+    title: 'Избранные эссе о познании',
+    category: 'Литература',
+    year: 2022,
+    journal: 'Литературная серия',
+    excerpt: 'Сборник литературно-философских эссе о природе знания и понимания.',
+    tags: ['эссе', 'философия', 'литература']
+  },
+  {
+    id: 6,
+    title: 'Беседа о методологии',
+    category: 'Интервью',
+    year: 2024,
+    journal: 'Научный диалог',
+    excerpt: 'Интервью о современных методологических подходах в науке и образовании.',
+    tags: ['интервью', 'методология', 'наука']
+  }
+];
 
 const Index = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Все');
+
+  const filteredPublications = publications.filter((pub) => {
+    const matchesSearch =
+      pub.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      pub.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      pub.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      pub.journal.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === 'Все' || pub.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="border-b border-border sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+        <div className="container mx-auto px-6 py-8">
+          <nav className="flex items-center justify-between mb-8">
+            <h1 className="text-4xl font-semibold tracking-tight">Публикации</h1>
+            <div className="flex items-center gap-6">
+              {['Главная', 'Об авторе'].map((item) => (
+                <button
+                  key={item}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          </nav>
+
+          <div className="relative max-w-2xl">
+            <Icon
+              name="Search"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
+              size={20}
+            />
+            <Input
+              type="search"
+              placeholder="Поиск по публикациям, тегам, журналам..."
+              className="pl-12 h-12 text-base"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-6 py-12">
+        <section className="mb-16">
+          <div className="max-w-3xl">
+            <h2 className="text-5xl font-semibold mb-6 leading-tight">
+              Научные публикации и исследования
+            </h2>
+            <p className="text-xl text-muted-foreground leading-relaxed">
+              Коллекция научных работ, статей и монографий, посвящённых вопросам
+              философии, методологии и теории познания.
+            </p>
+          </div>
+        </section>
+
+        <Tabs defaultValue="Все" className="mb-12" onValueChange={setSelectedCategory}>
+          <TabsList className="h-auto p-1 bg-secondary/50 flex-wrap justify-start">
+            {categories.map((category) => (
+              <TabsTrigger
+                key={category}
+                value={category}
+                className="text-sm px-6 py-2.5"
+              >
+                {category}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+
+          {categories.map((category) => (
+            <TabsContent key={category} value={category} className="mt-8">
+              <div className="grid gap-6 animate-fade-in">
+                {filteredPublications.length === 0 ? (
+                  <div className="text-center py-16">
+                    <Icon
+                      name="FileSearch"
+                      className="mx-auto mb-4 text-muted-foreground"
+                      size={48}
+                    />
+                    <p className="text-lg text-muted-foreground">
+                      Публикации не найдены
+                    </p>
+                  </div>
+                ) : (
+                  filteredPublications.map((pub, index) => (
+                    <Card
+                      key={pub.id}
+                      className="group hover:shadow-lg transition-all duration-300 animate-scale-in"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <CardHeader className="space-y-3">
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="space-y-2 flex-1">
+                            <Badge variant="secondary" className="text-xs font-medium">
+                              {pub.category}
+                            </Badge>
+                            <CardTitle className="text-2xl leading-tight group-hover:text-primary transition-colors">
+                              {pub.title}
+                            </CardTitle>
+                          </div>
+                          <span className="text-sm text-muted-foreground font-medium">
+                            {pub.year}
+                          </span>
+                        </div>
+                        <CardDescription className="text-sm text-muted-foreground italic">
+                          {pub.journal}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <p className="text-base leading-relaxed">{pub.excerpt}</p>
+                        <div className="flex flex-wrap gap-2">
+                          {pub.tags.map((tag) => (
+                            <Badge
+                              key={tag}
+                              variant="outline"
+                              className="text-xs font-normal"
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </div>
+                        <Button
+                          variant="ghost"
+                          className="group/btn p-0 h-auto hover:bg-transparent"
+                        >
+                          <span className="text-primary flex items-center gap-2">
+                            Читать полностью
+                            <Icon
+                              name="ArrowRight"
+                              size={16}
+                              className="group-hover/btn:translate-x-1 transition-transform"
+                            />
+                          </span>
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+
+        <section className="mt-20 pt-16 border-t border-border">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Icon name="BookOpen" className="text-primary" size={24} />
+              </div>
+              <h3 className="text-xl font-semibold">50+ публикаций</h3>
+              <p className="text-muted-foreground">
+                В ведущих научных журналах и издательствах
+              </p>
+            </div>
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Icon name="Award" className="text-primary" size={24} />
+              </div>
+              <h3 className="text-xl font-semibold">Рецензирование</h3>
+              <p className="text-muted-foreground">
+                Все работы прошли строгую научную экспертизу
+              </p>
+            </div>
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Icon name="TrendingUp" className="text-primary" size={24} />
+              </div>
+              <h3 className="text-xl font-semibold">Индексация</h3>
+              <p className="text-muted-foreground">
+                Включены в международные научные базы данных
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-border mt-20">
+        <div className="container mx-auto px-6 py-8">
+          <p className="text-center text-sm text-muted-foreground">
+            © 2024 Научные публикации. Все права защищены.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 };
