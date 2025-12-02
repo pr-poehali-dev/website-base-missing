@@ -9,8 +9,12 @@ const Header = () => {
       <div className="container mx-auto px-6 py-8">
         <nav className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
-              <span className="text-2xl text-muted-foreground">АК</span>
+            <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
+              <img 
+                src="https://cdn.poehali.dev/files/69f312af-64e7-4a9f-be19-0b2e6d3ee7be.jpg" 
+                alt="Алексей Каплан"
+                className="w-full h-full object-cover"
+              />
             </div>
             <h1 className="text-2xl font-semibold tracking-tight hover:text-primary transition-colors">
               Официальный сайт Алексея Каплана
