@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 const Header = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const isAbout = location.pathname === '/about';
 
   return (
     <header className="border-b border-border sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
@@ -29,11 +30,14 @@ const Header = () => {
             >
               Главная
             </Link>
-            <button
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+            <Link
+              to="/about"
+              className={`text-sm transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                isAbout ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
+              }`}
             >
               Об авторе
-            </button>
+            </Link>
           </div>
         </nav>
       </div>
