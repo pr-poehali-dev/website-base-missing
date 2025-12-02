@@ -18,7 +18,7 @@ const Header = () => {
               />
             </div>
             <h1 className="text-2xl font-semibold tracking-tight hover:text-primary transition-colors">
-              Официальный сайт Алексея Каплана
+              Алексей Каплан
             </h1>
           </Link>
           <div className="flex items-center gap-6">
