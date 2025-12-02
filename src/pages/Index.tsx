@@ -75,6 +75,32 @@ const Index = () => {
           </div>
         </section>
 
+        <section className="mb-16">
+          <h3 className="text-2xl font-semibold mb-6">Последние новости</h3>
+          <div className="grid gap-6 md:grid-cols-3">
+            {publications
+              .filter(pub => pub.category === 'Новости')
+              .slice(0, 3)
+              .map((pub) => (
+                <Link key={pub.id} to={`/publication/${pub.id}`}>
+                  <Card className="h-full hover:shadow-lg transition-shadow">
+                    <CardHeader>
+                      <CardTitle className="text-lg">{pub.title}</CardTitle>
+                      <CardDescription className="text-sm text-muted-foreground">
+                        {pub.journal} • {pub.year}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground line-clamp-3">
+                        {pub.excerpt}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+          </div>
+        </section>
+
         <Tabs defaultValue="Новости" className="mb-12" onValueChange={(value) => {
           setSelectedGroup(value);
           setSelectedCategory(null);
