@@ -17,6 +17,7 @@ const categoryGroups = {
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('Все');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredPublications = publications.filter((pub) => {
     const matchesSearch =
@@ -25,9 +26,10 @@ const Index = () => {
       pub.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
       pub.journal.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesCategory = categoryGroups[selectedGroup as keyof typeof categoryGroups].includes(pub.category);
+    const matchesGroup = categoryGroups[selectedGroup as keyof typeof categoryGroups].includes(pub.category);
+    const matchesCategory = !selectedCategory || pub.category === selectedCategory;
 
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesGroup && matchesCategory;
   });
 
   return (
@@ -78,7 +80,10 @@ const Index = () => {
           </div>
         </section>
 
-        <Tabs defaultValue="Все" className="mb-12" onValueChange={setSelectedGroup}>
+        <Tabs defaultValue="Все" className="mb-12" onValueChange={(value) => {
+          setSelectedGroup(value);
+          setSelectedCategory(null);
+        }}>
           <TabsList className="h-auto p-1 bg-secondary/50 flex-wrap justify-start">
             {Object.keys(categoryGroups).map((group) => (
               <TabsTrigger
@@ -93,6 +98,27 @@ const Index = () => {
 
           {Object.keys(categoryGroups).map((group) => (
             <TabsContent key={group} value={group} className="mt-8">
+              <div className="mb-6 flex flex-wrap gap-2">
+                <Button
+                  variant={selectedCategory === null ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(null)}
+                  className="text-xs"
+                >
+                  Все
+                </Button>
+                {categoryGroups[group as keyof typeof categoryGroups].map((category) => (
+                  <Button
+                    key={category}
+                    variant={selectedCategory === category ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setSelectedCategory(category)}
+                    className="text-xs"
+                  >
+                    {category}
+                  </Button>
+                ))}
+              </div>
               <div className="grid gap-6 animate-fade-in">
                 {filteredPublications.length === 0 ? (
                   <div className="text-center py-16">
