@@ -8,9 +8,12 @@ const Header = () => {
     <header className="border-b border-border sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
       <div className="container mx-auto px-6 py-8">
         <nav className="flex items-center justify-between">
-          <Link to="/">
-            <h1 className="text-4xl font-semibold tracking-tight hover:text-primary transition-colors">
-              Публикации
+          <Link to="/" className="flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
+              <span className="text-2xl text-muted-foreground">АК</span>
+            </div>
+            <h1 className="text-2xl font-semibold tracking-tight hover:text-primary transition-colors">
+              Официальный сайт Алексея Каплана
             </h1>
           </Link>
           <div className="flex items-center gap-6">
