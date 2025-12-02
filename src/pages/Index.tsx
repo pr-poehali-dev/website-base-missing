@@ -13,7 +13,6 @@ import { publications } from '@/data/publications';
 import Header from '@/components/Header';
 
 const categoryGroups = {
-  'Главная': ['Статьи', 'Монографии', 'Учебники', 'Публицистика', 'Литература', 'Публикации', 'Видео'],
   'Наука': ['Статьи', 'Монографии', 'Учебники'],
   'Литература': ['Публицистика', 'Проза'],
   'Интервью': ['Публикации', 'Видео'],
@@ -94,7 +93,7 @@ const Index = () => {
 
           {Object.keys(categoryGroups).map((group) => (
             <TabsContent key={group} value={group} className="mt-8">
-              {group !== 'Главная' && (
+              {group !== 'Новости' && (
                 <div className="mb-6 flex flex-wrap gap-2">
                   <Button
                     variant={selectedCategory === null ? "default" : "outline"}
