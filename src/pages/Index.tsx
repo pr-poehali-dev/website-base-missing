@@ -12,15 +12,16 @@ import Icon from '@/components/ui/icon';
 import { publications } from '@/data/publications';
 
 const categoryGroups = {
-  'Все': ['Статьи', 'Монографии', 'Учебники', 'Публицистика', 'Литература', 'Публикации', 'Видео'],
-  'Научные': ['Статьи', 'Монографии', 'Учебники'],
+  'Главная': ['Статьи', 'Монографии', 'Учебники', 'Публицистика', 'Литература', 'Публикации', 'Видео'],
+  'Наука': ['Статьи', 'Монографии', 'Учебники'],
   'Литература': ['Публицистика', 'Литература'],
-  'Интервью': ['Публикации', 'Видео']
+  'Интервью': ['Публикации', 'Видео'],
+  'Новости': []
 };
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedGroup, setSelectedGroup] = useState('Все');
+  const [selectedGroup, setSelectedGroup] = useState('Новости');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [registerForm, setRegisterForm] = useState({ name: '', email: '', institution: '' });
   const [messageForm, setMessageForm] = useState({ name: '', email: '', message: '' });
@@ -46,14 +47,11 @@ const Index = () => {
           <nav className="flex items-center justify-between mb-8">
             <h1 className="text-4xl font-semibold tracking-tight">Публикации</h1>
             <div className="flex items-center gap-6">
-              {['Главная', 'Об авторе'].map((item) => (
-                <button
-                  key={item}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-                >
-                  {item}
-                </button>
-              ))}
+              <button
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+              >
+                Об авторе
+              </button>
             </div>
           </nav>
 
@@ -87,7 +85,7 @@ const Index = () => {
           </div>
         </section>
 
-        <Tabs defaultValue="Все" className="mb-12" onValueChange={(value) => {
+        <Tabs defaultValue="Новости" className="mb-12" onValueChange={(value) => {
           setSelectedGroup(value);
           setSelectedCategory(null);
         }}>
