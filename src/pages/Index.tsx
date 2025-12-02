@@ -246,13 +246,29 @@ const Index = () => {
               </div>
               <form
                 className="space-y-4"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  toast({
-                    title: "Регистрация успешна!",
-                    description: "Мы отправим вам уведомление о новых публикациях.",
-                  });
-                  setRegisterForm({ name: '', email: '', institution: '' });
+                  try {
+                    const response = await fetch('https://functions.poehali.dev/46a0bc9c-e46d-4726-9467-7b0c71931d79', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(registerForm)
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                      toast({
+                        title: "Регистрация успешна!",
+                        description: "Мы отправим вам уведомление о новых публикациях.",
+                      });
+                      setRegisterForm({ name: '', email: '', institution: '' });
+                    }
+                  } catch (error) {
+                    toast({
+                      title: "Ошибка",
+                      description: "Не удалось отправить регистрацию. Попробуйте позже.",
+                      variant: "destructive"
+                    });
+                  }
                 }}
               >
                 <div className="space-y-2">
@@ -304,13 +320,29 @@ const Index = () => {
               </div>
               <form
                 className="space-y-4"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
-                  toast({
-                    title: "Сообщение отправлено!",
-                    description: "Мы свяжемся с вами в ближайшее время.",
-                  });
-                  setMessageForm({ name: '', email: '', message: '' });
+                  try {
+                    const response = await fetch('https://functions.poehali.dev/487ceefe-4ba6-45bc-9f5a-9db68a3cd89d', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(messageForm)
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                      toast({
+                        title: "Сообщение отправлено!",
+                        description: "Мы свяжемся с вами в ближайшее время.",
+                      });
+                      setMessageForm({ name: '', email: '', message: '' });
+                    }
+                  } catch (error) {
+                    toast({
+                      title: "Ошибка",
+                      description: "Не удалось отправить сообщение. Попробуйте позже.",
+                      variant: "destructive"
+                    });
+                  }
                 }}
               >
                 <div className="space-y-2">

@@ -1,0 +1,5 @@
+{
+  "get-submissions": "https://functions.poehali.dev/2a8a49c4-e9f9-4ee0-8a82-f41aa8ccf169",
+  "submit-registration": "https://functions.poehali.dev/46a0bc9c-e46d-4726-9467-7b0c71931d79",
+  "submit-message": "https://functions.poehali.dev/487ceefe-4ba6-45bc-9f5a-9db68a3cd89d"
+}

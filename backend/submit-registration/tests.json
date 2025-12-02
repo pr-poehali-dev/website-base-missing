@@ -1,0 +1,39 @@
+{
+  "tests": [
+    {
+      "name": "Valid registration submission",
+      "method": "POST",
+      "body": {
+        "name": "Иван Иванов",
+        "email": "test@example.com",
+        "institution": "МГУ"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "message": "string",
+        "id": "number"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Registration without institution",
+      "method": "POST",
+      "body": {
+        "name": "Петр Петров",
+        "email": "petr@example.com",
+        "institution": ""
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "CORS preflight OPTIONS",
+      "method": "OPTIONS",
+      "expectedStatus": 200
+    }
+  ]
+}

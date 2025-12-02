@@ -1,0 +1,25 @@
+{
+  "tests": [
+    {
+      "name": "Valid message submission",
+      "method": "POST",
+      "body": {
+        "name": "Мария Сидорова",
+        "email": "maria@example.com",
+        "message": "Здравствуйте! У меня есть вопрос по поводу публикаций."
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "success": true,
+        "message": "string",
+        "id": "number"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "CORS preflight OPTIONS",
+      "method": "OPTIONS",
+      "expectedStatus": 200
+    }
+  ]
+}

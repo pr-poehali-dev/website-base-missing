@@ -1,0 +1,19 @@
+{
+  "tests": [
+    {
+      "name": "Get all submissions",
+      "method": "GET",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "registrations": "array",
+        "messages": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "CORS preflight OPTIONS",
+      "method": "OPTIONS",
+      "expectedStatus": 200
+    }
+  ]
+}
