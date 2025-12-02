@@ -103,27 +103,29 @@ const Index = () => {
 
           {Object.keys(categoryGroups).map((group) => (
             <TabsContent key={group} value={group} className="mt-8">
-              <div className="mb-6 flex flex-wrap gap-2">
-                <Button
-                  variant={selectedCategory === null ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setSelectedCategory(null)}
-                  className="text-xs"
-                >
-                  Все
-                </Button>
-                {categoryGroups[group as keyof typeof categoryGroups].map((category) => (
+              {group !== 'Главная' && (
+                <div className="mb-6 flex flex-wrap gap-2">
                   <Button
-                    key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
+                    variant={selectedCategory === null ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => setSelectedCategory(null)}
                     className="text-xs"
                   >
-                    {category}
+                    Все
                   </Button>
-                ))}
-              </div>
+                  {categoryGroups[group as keyof typeof categoryGroups].map((category) => (
+                    <Button
+                      key={category}
+                      variant={selectedCategory === category ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => setSelectedCategory(category)}
+                      className="text-xs"
+                    >
+                      {category}
+                    </Button>
+                  ))}
+                </div>
+              )}
               <div className="grid gap-6 animate-fade-in">
                 {filteredPublications.length === 0 ? (
                   <div className="text-center py-16">
