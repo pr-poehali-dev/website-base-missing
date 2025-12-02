@@ -8,19 +8,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
 import { publications } from '@/data/publications';
 
-const categories = [
-  'Все',
-  'Статьи',
-  'Монографии',
-  'Учебники',
-  'Публицистика',
-  'Литература',
-  'Интервью'
-];
+const categoryGroups = {
+  'Все': ['Статьи', 'Монографии', 'Учебники', 'Публицистика', 'Литература', 'Интервью'],
+  'Научные': ['Статьи', 'Монографии', 'Учебники'],
+  'Литература': ['Публицистика', 'Литература', 'Интервью']
+};
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('Все');
+  const [selectedGroup, setSelectedGroup] = useState('Все');
 
   const filteredPublications = publications.filter((pub) => {
     const matchesSearch =
@@ -29,8 +25,7 @@ const Index = () => {
       pub.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
       pub.journal.toLowerCase().includes(searchQuery.toLowerCase());
 
-    const matchesCategory =
-      selectedCategory === 'Все' || pub.category === selectedCategory;
+    const matchesCategory = categoryGroups[selectedGroup as keyof typeof categoryGroups].includes(pub.category);
 
     return matchesSearch && matchesCategory;
   });
@@ -83,21 +78,21 @@ const Index = () => {
           </div>
         </section>
 
-        <Tabs defaultValue="Все" className="mb-12" onValueChange={setSelectedCategory}>
+        <Tabs defaultValue="Все" className="mb-12" onValueChange={setSelectedGroup}>
           <TabsList className="h-auto p-1 bg-secondary/50 flex-wrap justify-start">
-            {categories.map((category) => (
+            {Object.keys(categoryGroups).map((group) => (
               <TabsTrigger
-                key={category}
-                value={category}
+                key={group}
+                value={group}
                 className="text-sm px-6 py-2.5"
               >
-                {category}
+                {group}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          {categories.map((category) => (
-            <TabsContent key={category} value={category} className="mt-8">
+          {Object.keys(categoryGroups).map((group) => (
+            <TabsContent key={group} value={group} className="mt-8">
               <div className="grid gap-6 animate-fade-in">
                 {filteredPublications.length === 0 ? (
                   <div className="text-center py-16">
