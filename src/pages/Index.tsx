@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Icon from '@/components/ui/icon';
+import { publications } from '@/data/publications';
 
 const categories = [
   'Все',
@@ -14,63 +16,6 @@ const categories = [
   'Публицистика',
   'Литература',
   'Интервью'
-];
-
-const publications = [
-  {
-    id: 1,
-    title: 'О природе научного познания',
-    category: 'Статьи',
-    year: 2024,
-    journal: 'Вестник науки',
-    excerpt: 'Исследование фундаментальных принципов научного метода и его применения в современной науке.',
-    tags: ['философия науки', 'методология', 'эпистемология']
-  },
-  {
-    id: 2,
-    title: 'Системы и структуры',
-    category: 'Монографии',
-    year: 2023,
-    journal: 'Издательство университета',
-    excerpt: 'Монографическое исследование системных подходов в современной научной практике.',
-    tags: ['системный анализ', 'структурализм', 'методология']
-  },
-  {
-    id: 3,
-    title: 'Введение в теорию познания',
-    category: 'Учебники',
-    year: 2024,
-    journal: 'Академическое издательство',
-    excerpt: 'Учебное пособие для студентов философских факультетов, охватывающее основные теории познания.',
-    tags: ['философия', 'образование', 'гносеология']
-  },
-  {
-    id: 4,
-    title: 'Наука и общество в XXI веке',
-    category: 'Публицистика',
-    year: 2024,
-    journal: 'Современник',
-    excerpt: 'Размышления о роли науки в современном обществе и вызовах будущего.',
-    tags: ['социология науки', 'публицистика', 'современность']
-  },
-  {
-    id: 5,
-    title: 'Избранные эссе о познании',
-    category: 'Литература',
-    year: 2022,
-    journal: 'Литературная серия',
-    excerpt: 'Сборник литературно-философских эссе о природе знания и понимания.',
-    tags: ['эссе', 'философия', 'литература']
-  },
-  {
-    id: 6,
-    title: 'Беседа о методологии',
-    category: 'Интервью',
-    year: 2024,
-    journal: 'Научный диалог',
-    excerpt: 'Интервью о современных методологических подходах в науке и образовании.',
-    tags: ['интервью', 'методология', 'наука']
-  }
 ];
 
 const Index = () => {
@@ -203,19 +148,21 @@ const Index = () => {
                             </Badge>
                           ))}
                         </div>
-                        <Button
-                          variant="ghost"
-                          className="group/btn p-0 h-auto hover:bg-transparent"
-                        >
-                          <span className="text-primary flex items-center gap-2">
-                            Читать полностью
-                            <Icon
-                              name="ArrowRight"
-                              size={16}
-                              className="group-hover/btn:translate-x-1 transition-transform"
-                            />
-                          </span>
-                        </Button>
+                        <Link to={`/publication/${pub.id}`}>
+                          <Button
+                            variant="ghost"
+                            className="group/btn p-0 h-auto hover:bg-transparent"
+                          >
+                            <span className="text-primary flex items-center gap-2">
+                              Читать полностью
+                              <Icon
+                                name="ArrowRight"
+                                size={16}
+                                className="group-hover/btn:translate-x-1 transition-transform"
+                              />
+                            </span>
+                          </Button>
+                        </Link>
                       </CardContent>
                     </Card>
                   ))
