@@ -5,6 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import Icon from '@/components/ui/icon';
 import { getPublicationById, getNextPublication, getPreviousPublication } from '@/data/publications';
 import ReactMarkdown from 'react-markdown';
+import Header from '@/components/Header';
 
 const Publication = () => {
   const { id } = useParams();
@@ -31,23 +32,19 @@ const Publication = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
-        <div className="container mx-auto px-6 py-6">
-          <nav className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              onClick={() => navigate('/')}
-              className="gap-2"
-            >
-              <Icon name="ArrowLeft" size={16} />
-              К списку публикаций
-            </Button>
-            <Link to="/" className="text-xl font-semibold tracking-tight">
-              Публикации
-            </Link>
-          </nav>
+      <Header />
+      <div className="border-b border-border bg-background">
+        <div className="container mx-auto px-6 py-4">
+          <Button
+            variant="ghost"
+            onClick={() => navigate('/')}
+            className="gap-2"
+          >
+            <Icon name="ArrowLeft" size={16} />
+            К списку публикаций
+          </Button>
         </div>
-      </header>
+      </div>
 
       <article className="container mx-auto px-6 py-16 max-w-4xl">
         <div className="space-y-8 animate-fade-in">

@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 import { publications } from '@/data/publications';
+import Header from '@/components/Header';
 
 const categoryGroups = {
   'Главная': ['Статьи', 'Монографии', 'Учебники', 'Публицистика', 'Литература', 'Публикации', 'Видео'],
@@ -42,19 +43,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b border-border sticky top-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
+      <Header />
+      <div className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-8">
-          <nav className="flex items-center justify-between mb-8">
-            <h1 className="text-4xl font-semibold tracking-tight">Публикации</h1>
-            <div className="flex items-center gap-6">
-              <button
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
-              >
-                Об авторе
-              </button>
-            </div>
-          </nav>
-
           <div className="relative max-w-2xl">
             <Icon
               name="Search"
@@ -70,7 +61,7 @@ const Index = () => {
             />
           </div>
         </div>
-      </header>
+      </div>
 
       <main className="container mx-auto px-6 py-12">
         <section className="mb-16">
