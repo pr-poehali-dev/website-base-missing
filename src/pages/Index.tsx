@@ -5,6 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
 import Icon from '@/components/ui/icon';
 import { publications } from '@/data/publications';
 
@@ -19,6 +22,9 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('Все');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [registerForm, setRegisterForm] = useState({ name: '', email: '', institution: '' });
+  const [messageForm, setMessageForm] = useState({ name: '', email: '', message: '' });
+  const { toast } = useToast();
 
   const filteredPublications = publications.filter((pub) => {
     const matchesSearch =
@@ -222,6 +228,128 @@ const Index = () => {
               <p className="text-muted-foreground">
                 Включены в международные научные базы данных
               </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-20 pt-16 border-t border-border">
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Icon name="UserPlus" className="text-primary" size={24} />
+                </div>
+                <h3 className="text-2xl font-semibold">Регистрация</h3>
+                <p className="text-muted-foreground">
+                  Зарегистрируйтесь, чтобы получать уведомления о новых публикациях
+                </p>
+              </div>
+              <form
+                className="space-y-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  toast({
+                    title: "Регистрация успешна!",
+                    description: "Мы отправим вам уведомление о новых публикациях.",
+                  });
+                  setRegisterForm({ name: '', email: '', institution: '' });
+                }}
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="reg-name">Имя и фамилия</Label>
+                  <Input
+                    id="reg-name"
+                    placeholder="Иван Иванов"
+                    value={registerForm.name}
+                    onChange={(e) => setRegisterForm({ ...registerForm, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="reg-email">Email</Label>
+                  <Input
+                    id="reg-email"
+                    type="email"
+                    placeholder="ivan@example.com"
+                    value={registerForm.email}
+                    onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="reg-institution">Организация (необязательно)</Label>
+                  <Input
+                    id="reg-institution"
+                    placeholder="МГУ им. Ломоносова"
+                    value={registerForm.institution}
+                    onChange={(e) => setRegisterForm({ ...registerForm, institution: e.target.value })}
+                  />
+                </div>
+                <Button type="submit" className="w-full">
+                  <Icon name="Send" size={16} className="mr-2" />
+                  Зарегистрироваться
+                </Button>
+              </form>
+            </div>
+
+            <div className="space-y-6">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                  <Icon name="MessageSquare" className="text-primary" size={24} />
+                </div>
+                <h3 className="text-2xl font-semibold">Оставить сообщение</h3>
+                <p className="text-muted-foreground">
+                  Есть вопросы или предложения? Напишите нам
+                </p>
+              </div>
+              <form
+                className="space-y-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  toast({
+                    title: "Сообщение отправлено!",
+                    description: "Мы свяжемся с вами в ближайшее время.",
+                  });
+                  setMessageForm({ name: '', email: '', message: '' });
+                }}
+              >
+                <div className="space-y-2">
+                  <Label htmlFor="msg-name">Имя</Label>
+                  <Input
+                    id="msg-name"
+                    placeholder="Ваше имя"
+                    value={messageForm.name}
+                    onChange={(e) => setMessageForm({ ...messageForm, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="msg-email">Email</Label>
+                  <Input
+                    id="msg-email"
+                    type="email"
+                    placeholder="ваш@email.com"
+                    value={messageForm.email}
+                    onChange={(e) => setMessageForm({ ...messageForm, email: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="msg-message">Сообщение</Label>
+                  <Textarea
+                    id="msg-message"
+                    placeholder="Ваше сообщение..."
+                    rows={4}
+                    value={messageForm.message}
+                    onChange={(e) => setMessageForm({ ...messageForm, message: e.target.value })}
+                    required
+                  />
+                </div>
+                <Button type="submit" className="w-full">
+                  <Icon name="Send" size={16} className="mr-2" />
+                  Отправить сообщение
+                </Button>
+              </form>
             </div>
           </div>
         </section>
