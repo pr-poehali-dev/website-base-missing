@@ -261,7 +261,7 @@ export const publications: Publication[] = [
   {
     id: 6,
     title: 'Беседа о методологии',
-    category: 'Интервью',
+    category: 'Публикации',
     year: 2024,
     journal: 'Научный диалог',
     author: 'Интервью провел Н. Смирнов',
