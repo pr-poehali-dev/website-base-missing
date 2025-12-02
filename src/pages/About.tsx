@@ -17,7 +17,7 @@ const About = () => {
             <div className="md:w-2/3">
               <h1 className="text-4xl font-bold mb-4">Алексей Каплан</h1>
               <p className="text-lg text-muted-foreground mb-4">
-                Писатель, публицист, исследователь
+                Исследователь, преподаватель, писатель, предприниматель
               </p>
             </div>
           </div>
