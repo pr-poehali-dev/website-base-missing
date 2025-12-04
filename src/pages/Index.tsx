@@ -81,18 +81,6 @@ const Index = () => {
 
       <main className="container mx-auto px-6 py-12">
         <section className="mb-16">
-          <div className="max-w-3xl">
-            <h2 className="text-5xl font-semibold mb-6 leading-tight">
-              Научные публикации и исследования
-            </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Коллекция научных работ, статей и монографий, посвящённых вопросам
-              философии, методологии и теории познания.
-            </p>
-          </div>
-        </section>
-
-        <section className="mb-16">
           <h3 className="text-2xl font-semibold mb-6">Последние новости</h3>
           <div className="grid gap-6 md:grid-cols-3">
             {publications
