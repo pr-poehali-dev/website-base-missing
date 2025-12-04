@@ -45,7 +45,7 @@ const Index = () => {
       <Header />
       <div className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-8">
-          <div className="relative max-w-2xl">
+          <div className="relative max-w-2xl mb-6">
             <Icon
               name="Search"
               className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -59,6 +59,23 @@ const Index = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
+          
+          <Tabs defaultValue="Новости" onValueChange={(value) => {
+            setSelectedGroup(value);
+            setSelectedCategory(null);
+          }}>
+            <TabsList className="h-auto p-1 bg-secondary/50 flex-wrap justify-start">
+              {Object.keys(categoryGroups).map((group) => (
+                <TabsTrigger
+                  key={group}
+                  value={group}
+                  className="text-sm px-6 py-2.5"
+                >
+                  {group}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
         </div>
       </div>
 
@@ -101,24 +118,9 @@ const Index = () => {
           </div>
         </section>
 
-        <Tabs defaultValue="Новости" className="mb-12" onValueChange={(value) => {
-          setSelectedGroup(value);
-          setSelectedCategory(null);
-        }}>
-          <TabsList className="h-auto p-1 bg-secondary/50 flex-wrap justify-start">
-            {Object.keys(categoryGroups).map((group) => (
-              <TabsTrigger
-                key={group}
-                value={group}
-                className="text-sm px-6 py-2.5"
-              >
-                {group}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
+        <Tabs value={selectedGroup} className="mb-12">
           {Object.keys(categoryGroups).map((group) => (
-            <TabsContent key={group} value={group} className="mt-8">
+            <TabsContent key={group} value={group} className="mt-0">
               {group !== 'Новости' && (
                 <div className="mb-6 flex flex-wrap gap-2">
                   <Button
