@@ -45,7 +45,24 @@ const Index = () => {
       <Header />
       <div className="border-b border-border bg-background">
         <div className="container mx-auto px-6 py-8">
-          <div className="relative max-w-2xl mb-6">
+          <Tabs defaultValue="Новости" onValueChange={(value) => {
+            setSelectedGroup(value);
+            setSelectedCategory(null);
+          }}>
+            <TabsList className="h-auto p-1 bg-secondary/50 flex-wrap justify-start mb-6">
+              {Object.keys(categoryGroups).map((group) => (
+                <TabsTrigger
+                  key={group}
+                  value={group}
+                  className="text-sm px-6 py-2.5"
+                >
+                  {group}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+          
+          <div className="relative max-w-2xl">
             <Icon
               name="Search"
               className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -59,23 +76,6 @@ const Index = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-          
-          <Tabs defaultValue="Новости" onValueChange={(value) => {
-            setSelectedGroup(value);
-            setSelectedCategory(null);
-          }}>
-            <TabsList className="h-auto p-1 bg-secondary/50 flex-wrap justify-start">
-              {Object.keys(categoryGroups).map((group) => (
-                <TabsTrigger
-                  key={group}
-                  value={group}
-                  className="text-sm px-6 py-2.5"
-                >
-                  {group}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
         </div>
       </div>
 
