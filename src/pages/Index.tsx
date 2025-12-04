@@ -80,31 +80,6 @@ const Index = () => {
       </div>
 
       <main className="container mx-auto px-6 py-12">
-        <section className="mb-16">
-          <div className="grid gap-6 md:grid-cols-3">
-            {publications
-              .filter(pub => pub.category === 'Новости')
-              .slice(0, 3)
-              .map((pub) => (
-                <Link key={pub.id} to={`/publication/${pub.id}`}>
-                  <Card className="h-full hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <CardTitle className="text-lg">{pub.title}</CardTitle>
-                      <CardDescription className="text-sm text-muted-foreground">
-                        {pub.journal} • {pub.year}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground line-clamp-3">
-                        {pub.excerpt}
-                      </p>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-          </div>
-        </section>
-
         <Tabs value={selectedGroup} className="mb-12">
           {Object.keys(categoryGroups).map((group) => (
             <TabsContent key={group} value={group} className="mt-0">
@@ -130,6 +105,32 @@ const Index = () => {
                     </Button>
                   ))}
                 </div>
+              )}
+              {group === 'Новости' && (
+                <section className="mb-16">
+                  <div className="grid gap-6 md:grid-cols-3">
+                    {publications
+                      .filter(pub => pub.category === 'Новости')
+                      .slice(0, 3)
+                      .map((pub) => (
+                        <Link key={pub.id} to={`/publication/${pub.id}`}>
+                          <Card className="h-full hover:shadow-lg transition-shadow">
+                            <CardHeader>
+                              <CardTitle className="text-lg">{pub.title}</CardTitle>
+                              <CardDescription className="text-sm text-muted-foreground">
+                                {pub.journal} • {pub.year}
+                              </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                              <p className="text-sm text-muted-foreground line-clamp-3">
+                                {pub.excerpt}
+                              </p>
+                            </CardContent>
+                          </Card>
+                        </Link>
+                      ))}
+                  </div>
+                </section>
               )}
               <div className="grid gap-6 animate-fade-in">
                 {filteredPublications.length === 0 ? (
